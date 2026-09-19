@@ -19,6 +19,7 @@ namespace Exam
         {
 
             Stopwatch sw = new Stopwatch();
+            int grade = 0;
             Console.WriteLine("============ PracticalExam ============");
 
             Console.WriteLine($"Time : {Time} Minutes");
@@ -35,15 +36,16 @@ namespace Exam
 
                 Console.WriteLine("Enter your answer : ");
 
-                Console.ReadLine();
+                int userAnswer = int.Parse(Console.ReadLine());
+                if (question.RightAnswer != null && userAnswer == question.RightAnswer.AnswerId)
+                {
+                    grade += question.Mark;
+                }
 
                 Console.WriteLine();
 
             }
             sw.Stop();
-
-            Console.WriteLine("============ Exam Finished ============");
-            Console.WriteLine($"Time Taken : {sw.Elapsed.Minutes} Minutes {sw.Elapsed.Seconds} Seconds");
 
             Console.WriteLine("============ Correct Answers ============");
 
@@ -52,6 +54,17 @@ namespace Exam
                 Console.WriteLine($"{question.Header}:{question.RightAnswer.AnswerText}");
 
             }
+
+            Console.WriteLine("============ Exam Finished ============");
+
+            Console.WriteLine();
+
+            Console.WriteLine($"Your Grade = {grade}");
+
+            Console.WriteLine($"Time Taken : {sw.Elapsed}");
+            Console.WriteLine();
+            Console.WriteLine("Thank you");
+
 
         }
     }

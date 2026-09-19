@@ -13,12 +13,22 @@
 
             Subject subject = new Subject(subjectId, subjectName);
 
-            Console.WriteLine("\nChoose Exam Type:");
-            Console.WriteLine("1. Final Exam");
-            Console.WriteLine("2. Practical Exam");
-            Console.Write("Enter Choice: ");
+            int examType;
 
-            int examType = int.Parse(Console.ReadLine());
+            while (true)
+            {
+                Console.WriteLine("Choose Exam Type:");
+                Console.WriteLine("1. Final Exam");
+                Console.WriteLine("2. Practical Exam");
+                Console.Write("Enter Choice: ");
+
+                examType = int.Parse(Console.ReadLine());
+
+                if (examType == 1 || examType == 2)
+                    break;
+
+                Console.WriteLine("Invalid Choice! Please enter 1 or 2.\n");
+            }
 
             Console.Write("\nEnter Exam Time in Minutes: ");
             int time = int.Parse(Console.ReadLine());
@@ -41,8 +51,15 @@
             {
                 Console.WriteLine($"\n========== Question {i + 1} ==========");
 
-                Console.Write("Enter Question Type (1 = True/False, 2 = MCQ): ");
-                int questionType = int.Parse(Console.ReadLine());
+                int questionType;
+                while (true)
+                {
+                    Console.Write("Enter Question Type (1 = True/False, 2 = MCQ): ");
+                    if (int.TryParse(Console.ReadLine(), out questionType) && (questionType == 1 || questionType == 2))
+                        break;
+
+                    Console.WriteLine("Invalid choice! Enter 1 or 2.");
+                }
 
                 Console.Write("Enter Header: ");
                 string header = Console.ReadLine();

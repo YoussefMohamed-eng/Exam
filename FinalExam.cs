@@ -41,11 +41,26 @@ namespace Exam
                 Console.WriteLine();
             }
             sw.Stop();
+
+            Console.WriteLine("============ Correct Answers ============");
+
+            foreach (Question question in Questions)
+            {
+                Console.WriteLine($"{question.Header}:{question.RightAnswer.AnswerText}");
+
+            }
+
             Console.WriteLine("============ Exam Finished ============");
 
-            Console.WriteLine($"Time Taken : {sw.Elapsed.Minutes}Minutes {sw.Elapsed.Seconds}Seconds");
+            Console.WriteLine();
 
             Console.WriteLine($"Your Grade = {grade}");
+
+            Console.WriteLine($"Time Taken : {sw.Elapsed}");
+            Console.WriteLine();
+            Console.WriteLine("Thank you");
+
+
         }
     }
 }
