@@ -112,18 +112,58 @@
                 }
             }
 
-            subject.CreateExam(exam);
+            while (true)
+            {
+                Console.Clear();
 
-            Console.Clear();
+                Console.WriteLine("=================================");
+                Console.WriteLine("          C# OOP EXAM");
+                Console.WriteLine("=================================\n");
 
-            Console.WriteLine($"Subject: {subject.SubjectName}");
-            Console.WriteLine();
+                string choice;
 
-            subject.Exam.ShowExam();
+                do
+                {
+                    Console.Write("Do you want to start the exam? (Y/N): ");
+                    choice = Console.ReadLine().Trim().ToUpper();
 
-            Console.ReadKey();
+                    if (choice != "Y" && choice != "N")
+                    {
+                        Console.WriteLine("Invalid choice! Please enter Y or N.\n");
+                    }
+
+                } while (choice != "Y" && choice != "N");
+
+
+                if (choice == "N")
+                {
+                    Console.WriteLine("\nExam cancelled.");
+                    return;
+                }
+
+
+                Console.Clear();
+
+                Console.WriteLine("=================================");
+                Console.WriteLine("          EXAM STARTED");
+                Console.WriteLine("=================================\n");
+
+
+
+                subject.CreateExam(exam);
+
+                Console.Clear();
+
+                Console.WriteLine($"Subject: {subject.SubjectName}");
+                Console.WriteLine();
+
+                subject.Exam.ShowExam();
+
+                Console.ReadKey();
 
             #endregion
+            }
         }
     }
 }
+

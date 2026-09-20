@@ -6,62 +6,87 @@ using System.Timers;
 
 namespace Exam
 {
-    internal class FinalExam :Exam
+
+    internal class FinalExam : Exam
     {
         public FinalExam()
         {
-
         }
-        public FinalExam(int time, int numberOfQuestions) : base(time, numberOfQuestions)
-        {
 
+        public FinalExam(int time, int numberOfQuestions)
+            : base(time, numberOfQuestions)
+        {
         }
 
         public override void ShowExam()
         {
-            Stopwatch sw = new Stopwatch();
+            Stopwatch stopwatch = new Stopwatch();
+
             int grade = 0;
-            Console.WriteLine("============ FinalExam ============");
+            int totalMarks = 0;
 
-            Console.WriteLine($"Time:{Time} Minutes");
-
-            Console.WriteLine($"Number Of Questions : {NumberOfQuestions}");
-
+            Console.WriteLine("Final Exam");
             Console.WriteLine();
-            sw.Start();
-            foreach (Question question in Questions)
+
+            stopwatch.Start();
+
+            for (int i = 0; i < Questions.Length; i++)
             {
-                question.ShowQuestion();
-                Console.WriteLine("Enter your answer : ");
+                Question question = Questions[i];
+
+                Console.WriteLine(
+                    $"Question {i + 1}: {question.Header}");
+
+                Console.WriteLine(
+                    $"{question.Body}");
+
+                Console.WriteLine(
+                    $"MCQ Question:     Mark {question.Mark}");
+
+                foreach (Answer answer in question.Answers)
+                {
+                    Console.WriteLine(
+                        $"{answer.AnswerId}- {answer.AnswerText}");
+                }
+
+                Console.Write("Enter your answer ID: ");
+
                 int userAnswer = int.Parse(Console.ReadLine());
-                if (question.RightAnswer != null && userAnswer == question.RightAnswer.AnswerId)
+
+                Answer selectedAnswer =
+                    question.Answers[userAnswer - 1];
+
+                Console.WriteLine(
+                    $"Your Answer => {selectedAnswer.AnswerText}");
+
+
+                Console.WriteLine(
+                    $"Correct Answer => {question.RightAnswer.AnswerText}");
+
+                totalMarks += question.Mark;
+
+                if (userAnswer == question.RightAnswer.AnswerId)
                 {
                     grade += question.Mark;
                 }
+
                 Console.WriteLine();
             }
-            sw.Stop();
 
-            Console.WriteLine("============ Correct Answers ============");
+            stopwatch.Stop();
 
-            foreach (Question question in Questions)
-            {
-                Console.WriteLine($"{question.Header}:{question.RightAnswer.AnswerText}");
-
-            }
-
-            Console.WriteLine("============ Exam Finished ============");
-
+            Console.WriteLine("================================");
             Console.WriteLine();
 
-            Console.WriteLine($"Your Grade = {grade}");
+            Console.WriteLine(
+                $"Your Grade is {grade} from {totalMarks}");
 
-            Console.WriteLine($"Time Taken : {sw.Elapsed}");
+            Console.WriteLine(
+                $"Time = {stopwatch.Elapsed:hh\\:mm\\:ss}");
+
             Console.WriteLine();
             Console.WriteLine("Thank you");
-
-
         }
     }
 }
-
+        
